@@ -20,8 +20,17 @@ int main(int argc, char* argv[]) {
 				cout << "[ERROR] specify a higher limit." << endl;
 				return -1;
 			}
-			a.push_back(t);
+			if (t != "") {
+				a.push_back(t);
+			}
 			t = "";
+			continue;
+		} else if (IN[i] == '\n' || IN[i] == '\r') {
+			if (t != "") {
+				a.push_back(t);
+				t = "";
+			}
+			a.push_back("\n");
 			continue;
 		}
 		t += IN[i];
@@ -34,7 +43,13 @@ int main(int argc, char* argv[]) {
 		vector<string> line;
 		int count = 0;
 		int words = 0;
+		int extra_endl = -1;
 		while (count + a[p].size() < LIMIT && p < a.size()) {
+			if (a[p] == "\n") {
+				++p;
+				++extra_endl;
+				break;
+			}
 			line.push_back(a[p]);
 			line.push_back(" ");
 			count += a[p].size() + 1;
@@ -65,5 +80,8 @@ int main(int argc, char* argv[]) {
 			cout << i;
 		}
 		cout << endl;
+		for (int i = 0; i < extra_endl; i++) {
+			cout << endl;
+		}
 	}
 } 
