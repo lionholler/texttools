@@ -21,14 +21,18 @@ int main(int argc, char* argv[]) {
 	for (int i = 0; i < IN.size(); i++) {
 		if (p == LIMIT || IN[i] == '\n' || i == IN.size()-1) {
 			if (i == IN.size()-1) {
-				end = IN.size() - (IN[IN.size()-1] == '\n');
+				end = IN.size();
 				++x;
 			} else if (IN[i] == '\n') {
 				end = i;
 				++x;
 			}
+			while (IN[start] == '\n') {
+				cout << endl;
+				++start;
+			}
 			if (x > 0) {
-				const int len = end - start - (IN[start] == '\n');
+				const int len = end - start;
 				const int miss = LIMIT - len;
 				const int n = miss / x;
 				const int m = miss % x;
@@ -61,7 +65,9 @@ int main(int argc, char* argv[]) {
 			end = i;
 			++x;
 		}
-		++p;
+		if (IN[i] != '\n') {
+			++p;
+		}
 	}
 	cout << endl;
 } 
